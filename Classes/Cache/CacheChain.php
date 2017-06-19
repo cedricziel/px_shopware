@@ -24,6 +24,7 @@ namespace Portrino\PxShopware\Cache;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 use TYPO3\CMS\Core\Cache\Backend\BackendInterface;
 use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
 use TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend;
@@ -39,7 +40,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class CacheChain implements FrontendInterface, SingletonInterface {
 
     /**
-     * @var array
+     * @var FrontendInterface[]
      */
     protected $chain = [];
 
@@ -230,4 +231,16 @@ class CacheChain implements FrontendInterface, SingletonInterface {
     }
 
 
+    /**
+     * Removes all cache entries of this cache which are tagged by any of the specified tags.
+     *
+     * @param string[] $tags List of tags
+     * @api
+     */
+    public function flushByTags(array $tags)
+    {
+        foreach ($this->chain as $cache) {
+            $cache->flushByTags($tags);
+        }
+    }
 }
