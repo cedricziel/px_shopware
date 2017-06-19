@@ -146,7 +146,7 @@ class ShopwareConnectorInformationToolbarItem implements ToolbarItemInterface
         }
         $this->objectManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
         $this->configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
-        $this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'PxShopware');
+        $this->settings = (array) $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'PxShopware');
 
         if (!array_key_exists('api', $this->settings)) {
             $this->messages[] = [
